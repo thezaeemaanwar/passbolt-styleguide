@@ -28,8 +28,6 @@ class EnterUsernameForm extends Component {
   constructor(props) {
     super(props);
     this.state = this.defaultState;
-    this.myClientId =
-      "618975292790-h4ibru26u3vk4b45cockv87f49lrjgp4.apps.googleusercontent.com";
     this.createInputRefs();
     this.bindEventHandlers();
   }
@@ -46,6 +44,7 @@ class EnterUsernameForm extends Component {
       usernameError: null,
       agreedTerms: false,
       agreedTermsError: null,
+      myClientId: null,
       hasAlreadyBeenValidated: false, // True if the form has already been submitted once
     };
   }
@@ -217,6 +216,12 @@ class EnterUsernameForm extends Component {
   }
 
   /**
+   * Get O Auth client id from the script tag
+   * @returns {Promise<void>}
+   */
+  getOAuthClientId() {}
+
+  /**
    * Validate the agreed terms checkbox.
    * @returns {Promise<void>}
    */
@@ -286,7 +291,7 @@ class EnterUsernameForm extends Component {
         {/* <a href="https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=online&client_id=618975292790-h4ibru26u3vk4b45cockv87f49lrjgp4.apps.googleusercontent.com&redirect_uri=http://dev-passbolt.arbisoft.com/googleaccount&state&scope=email%20profile&approval_prompt=auto"> */}
         <a
           href={`https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=online&client_id=
-                  ${this.myClientId}&redirect_uri=${window.location.origin}/googleaccount&state&scope=email%20profile&approval_prompt=auto`}
+                  ${this.state.myClientId}&redirect_uri=${window.location.origin}/googleaccount&state&scope=email%20profile&approval_prompt=auto`}
         >
           <button className="login-with-google-btn">
             <img
