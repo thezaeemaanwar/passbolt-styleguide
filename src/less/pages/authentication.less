@@ -1,10 +1,10 @@
-html, body {
+html,
+body {
   height: 100%;
 }
 .login.page {
-
   h1 {
-    margin-top:0;
+    margin-top: 0;
     font-size: 2.4rem;
     color: @authentication-title-text-color;
   }
@@ -20,23 +20,39 @@ html, body {
     svg {
       width: 12rem;
       height: 12rem;
-      --spinner-stroke-width: .07rem;
+      --spinner-stroke-width: 0.07rem;
     }
   }
 
   .login-form {
     min-height: 16rem;
 
+    .enter-username {
+      .login-with-google-btn {
+        background-color: white;
+        padding: 10px 0px;
+        width: 100%;
+        .google-logo {
+          width: 24px;
+          margin-right: 20px;
+        }
+      }
+      .or {
+        margin: 20px 0px;
+        text-align: center;
+      }
+    }
+
     .form-actions {
-      text-align:center;
+      text-align: center;
       margin-top: 3.2rem;
     }
     .button + a {
-      font-size:1.6rem;
+      font-size: 1.6rem;
       line-height: 2.4rem;
-      text-align:center;
+      text-align: center;
       display: inline-block;
-      margin-top:1.6rem;
+      margin-top: 1.6rem;
       cursor: pointer;
     }
 
@@ -55,7 +71,8 @@ html, body {
     text-align: center;
 
     .email-sent-bg {
-      background: transparent url('@{images}/illustrations/email.png') top center no-repeat;
+      background: transparent url("@{images}/illustrations/email.png") top
+        center no-repeat;
       background-size: auto 90%;
       height: 16rem;
     }
@@ -73,7 +90,7 @@ html, body {
       .clearfix();
       margin: 1em 0 1.5em 0;
       label {
-        margin-bottom:.8rem;
+        margin-bottom: 0.8rem;
       }
       .input.text {
         .rounded();
@@ -84,12 +101,12 @@ html, body {
         margin-right: 3rem;
       }
       .circle-picker {
-        float:left;
+        float: left;
       }
       .randomize-button-wrapper {
-        float:left;
+        float: left;
         text-align: center;
-        clear:both;
+        clear: both;
         cursor: pointer;
       }
     }
@@ -104,7 +121,8 @@ html, body {
         margin-right: auto;
         max-width: 26rem;
       }
-      &.firefox img, &.edge img{
+      &.firefox img,
+      &.edge img {
         padding: 1.6rem 0;
       }
     }
@@ -112,18 +130,22 @@ html, body {
 
   .introduce-setup-extension {
     .animated-setup-introduction.chrome {
-      background: transparent url('@{images}/illustrations/pin_passbolt.gif') center center no-repeat;
+      background: transparent url("@{images}/illustrations/pin_passbolt.gif")
+        center center no-repeat;
       background-size: contain;
       height: 25rem;
     }
     .arrow {
       background-color: @icon-color;
-      -webkit-mask: url('@{images}/illustrations/wave-pin_my_extension.svg') center top no-repeat;
+      -webkit-mask: url("@{images}/illustrations/wave-pin_my_extension.svg")
+        center top no-repeat;
       width: 10rem;
       height: 10rem;
       position: absolute;
       top: 0;
-      right: calc(7rem - calc(100vw - 100%)); // positioning the arrow - the width of the scrollbar
+      right: calc(
+        7rem - calc(100vw - 100%)
+      ); // positioning the arrow - the width of the scrollbar
     }
   }
 
@@ -153,7 +175,8 @@ html, body {
         padding: 0.8rem;
 
         &.focused {
-          box-shadow: 0 0 .4rem @shadow-focus-color, inset 0 0 0 1px @button-focus-border;
+          box-shadow: 0 0 0.4rem @shadow-focus-color,
+            inset 0 0 0 1px @button-focus-border;
           color: @default-text-color;
           text-decoration: none;
           border: none;
@@ -163,13 +186,12 @@ html, body {
   }
 
   .recovery-account-setup-extension {
-      .input.radio {
-          margin-right: 0;
-      }
+    .input.radio {
+      margin-right: 0;
+    }
   }
 
   .login {
-
     .login-user {
       width: 100%;
       margin: auto;
@@ -207,7 +229,8 @@ html, body {
   }
 
   // Only for yubikey authentication
-  .totp-setup,.yubikey-setup {
+  .totp-setup,
+  .yubikey-setup {
     .input.password {
       display: block;
       background: initial;
@@ -218,35 +241,42 @@ html, body {
         margin-bottom: 1.2rem;
       }
 
-      input[type=password] {
+      input[type="password"] {
         color: @default-text-color;
         background: @input-background;
-        padding: .8rem .8rem;
+        padding: 0.8rem 0.8rem;
         margin-bottom: 1.2rem;
-        box-shadow: inset 0 0 0 .1rem @input-border;
-        border-radius: .4rem;
+        box-shadow: inset 0 0 0 0.1rem @input-border;
+        border-radius: 0.4rem;
 
         // Fields hover
         &:hover {
-          box-shadow: inset .1rem .1rem 0 rgba(255, 255, 255, @shadow-opacity-hover-white), .1rem .1rem 0 rgba(0, 0, 0, @shadow-opacity-hover-black), inset 0 0 0 1px @input-border;
+          box-shadow: inset 0.1rem 0.1rem 0
+              rgba(255, 255, 255, @shadow-opacity-hover-white),
+            0.1rem 0.1rem 0 rgba(0, 0, 0, @shadow-opacity-hover-black),
+            inset 0 0 0 1px @input-border;
         }
 
         // Fields focus
         &:focus {
-          box-shadow: 0 0 .4rem @shadow-focus-color, inset 0 0 0 .1rem @input-focus-border;
+          box-shadow: 0 0 0.4rem @shadow-focus-color,
+            inset 0 0 0 0.1rem @input-focus-border;
           outline: 0;
         }
 
         // Fields pressed
         &:active {
-          box-shadow: inset -.1rem -.1rem 0 rgba(255, 255, 255, @shadow-opacity-active-white), inset .1rem .1rem 0 rgba(0, 0, 0, @shadow-opacity-active-black), inset 0 0 0 1px @input-border;
+          box-shadow: inset -0.1rem -0.1rem 0
+              rgba(255, 255, 255, @shadow-opacity-active-white),
+            inset 0.1rem 0.1rem 0 rgba(0, 0, 0, @shadow-opacity-active-black),
+            inset 0 0 0 1px @input-border;
         }
 
         // Disabled fields.
         &:disabled {
           cursor: default;
-          box-shadow: inset 0 0 0 .1rem @input-border;
-          opacity: .5;
+          box-shadow: inset 0 0 0 0.1rem @input-border;
+          opacity: 0.5;
         }
       }
     }
@@ -255,7 +285,7 @@ html, body {
 
 @media only screen and (min-width: 42rem) {
   body {
-    background:@authentication-background;
+    background: @authentication-background;
   }
   .login.page {
     display: grid;
@@ -269,21 +299,21 @@ html, body {
       grid-area: login-form;
 
       .loading-bar {
-        display:block;
+        display: block;
       }
       .logo {
-        margin:1.6em auto;
+        margin: 1.6em auto;
         width: 20rem;
         background-size: 20rem auto;
       }
 
       .login-form {
         box-shadow: 0 0 1rem @dialog-box-shadow-color;
-        border-radius: .3rem;
-        max-width:37.2rem;
-        margin:auto;
-        padding:4.8rem 4rem;
-        background:@default-background;
+        border-radius: 0.3rem;
+        max-width: 37.2rem;
+        margin: auto;
+        padding: 4.8rem 4rem;
+        background: @default-background;
       }
 
       .select-wrapper {
@@ -292,10 +322,10 @@ html, body {
       }
 
       .login-box-footer {
-        max-width:37.2rem;
-        margin:auto;
+        max-width: 37.2rem;
+        margin: auto;
         .login-box-footer-actions {
-          margin:1.6rem auto;
+          margin: 1.6rem auto;
           text-align: center;
         }
       }
