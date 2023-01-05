@@ -171,6 +171,7 @@ class ImportGpgKey extends Component {
   async handleSelectPrivateKeyFile(event) {
     const [privateKeyFile] = event.target.files;
     const privateKey = await this.readPrivateKeyFile(privateKeyFile);
+    console.log(privateKey);
     await this.checkExpiryDate(privateKey);
     this.setState({privateKey, selectedFile: privateKeyFile});
     if (this.state.hasBeenValidated) {

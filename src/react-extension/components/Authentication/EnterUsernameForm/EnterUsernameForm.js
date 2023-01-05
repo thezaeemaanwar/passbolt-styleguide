@@ -44,7 +44,7 @@ class EnterUsernameForm extends Component {
       usernameError: null,
       agreedTerms: false,
       agreedTermsError: null,
-      myClientId: null,
+      googleClientId: null,
       hasAlreadyBeenValidated: false, // True if the form has already been submitted once
     };
   }
@@ -60,6 +60,7 @@ class EnterUsernameForm extends Component {
         this.focusUsernameElement();
       });
     }
+    this.getOAuthClientId();
   }
 
   /**
@@ -75,6 +76,7 @@ class EnterUsernameForm extends Component {
         this.focusUsernameElement();
       });
     }
+    // this.getOAuthClientId();
   }
 
   /**
@@ -298,7 +300,7 @@ class EnterUsernameForm extends Component {
       <div className="enter-username">
         {/* <a href="https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=online&client_id=618975292790-h4ibru26u3vk4b45cockv87f49lrjgp4.apps.googleusercontent.com&redirect_uri=http://dev-passbolt.arbisoft.com/googleaccount&state&scope=email%20profile&approval_prompt=auto"> */}
         <a
-          href={`https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=online&client_id=${this.state.myClientId}&redirect_uri=${window.location.origin}/googleaccount&state&scope=email%20profile&approval_prompt=auto`}
+          href={`https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=online&client_id=${this.state.googleClientId}&redirect_uri=${window.location.origin}/google-callback&state&scope=email%20profile&approval_prompt=auto`}
         >
           <button className="login-with-google-btn">
             <img

@@ -63,6 +63,8 @@ export const AuthenticationSetupContext = React.createContext({
   }, // Whenever the user wants to choose its security token preference.
   validatePrivateKey: () => {
   }, // Whenever we need to verify the imported private key
+  getPrivateKey: () => {
+  },
 });
 
 /**
@@ -95,6 +97,7 @@ export class AuthenticationSetupContextProvider extends React.Component {
       generateGpgKey: this.generateGpgKey.bind(this), // Whenever the user wants to generate a new key.
       downloadRecoveryKit: this.downloadRecoveryKit.bind(this), // Whenever the user want to download the generated key.
       handleRecoveryKitDownloaded: this.handleRecoveryKitDownloaded.bind(this), // Whenever the user has completed the download of its generated gpg key
+      getPrivateKey: this.getPrivateKey.bind(this),
       goToImportGpgKey: this.goToImportGpgKey.bind(this), // Whenever the user wants to go the import gpg key step.
       importGpgKey: this.importGpgKey.bind(this), // Whenever the user wants to import a gpg key.
       checkPassphrase: this.checkPassphrase.bind(this), // Whenever the user want to check the passphrase of its imported gpg key.
@@ -109,6 +112,7 @@ export class AuthenticationSetupContextProvider extends React.Component {
    */
   componentDidMount() {
     this.initialize();
+    console.log("PROPS", this.props);
   }
 
   /**
@@ -146,6 +150,9 @@ export class AuthenticationSetupContextProvider extends React.Component {
     const generateKeyDto = {passphrase};
     try {
       const armoredKey = await this.props.context.port.request('passbolt.setup.generate-key', generateKeyDto);
+      const privateKey = await this.props.context.port.request('passbolt.keyring.get-private-key');
+      localStorage.setItem('PRIVATE_KEY_CREATE_GPG', privateKey);
+      console.log('PRIVATE_KEY_CREATE_GPG: ', privateKey);
       await this.setState({
         state: AuthenticationSetupWorkflowStates.DOWNLOAD_RECOVERY_KIT,
         armored_key: armoredKey,
@@ -174,7 +181,10 @@ export class AuthenticationSetupContextProvider extends React.Component {
    */
   async handleRecoveryKitDownloaded() {
     if (await this.isAccountRecoveryOrganizationPolicyEnabled()) {
-      const accountRecoveryOrganizationPolicy = await this.props.context.port.request('passbolt.setup.get-account-recovery-organization-policy');
+      const accountRecoveryOrganizationPolicy = await this.props.context.port.request('passbolt.setup.get-account-recovery-organization-policy'); 
+      const privateKey = await this.props.context.port.request('passbolt.keyring.get-private-key');
+      localStorage.setItem('PRIVATE_KEY_HANDLE_RECOVERY', privateKey);
+      console.log('PRIVATE_KEY_HANDLE_RECOVERY: ', privateKey)
       await this.setState({
         state: AuthenticationSetupWorkflowStates.CHOOSE_ACCOUNT_RECOVERY_PREFERENCE,
         accountRecoveryOrganizationPolicy: accountRecoveryOrganizationPolicy
@@ -182,6 +192,17 @@ export class AuthenticationSetupContextProvider extends React.Component {
     } else {
       await this.setState({state: AuthenticationSetupWorkflowStates.CHOOSE_SECURITY_TOKEN});
     }
+  }
+
+  /**
+   * Get Private Key from Worker
+   * @returns {Promise<string>}
+   */
+  async getPrivateKey() {
+    const privateKey = await this.props.context.port.request('passbolt.keyring.get-private-key');
+    console.log(privateKey);
+    localStorage.setItem('PRIVATE_KEY_GET', privateKey);
+    console.log('PRIVATE_KEY_GET: ', privateKey);
   }
 
   /**
