@@ -17,15 +17,20 @@ import {withAppContext} from "../../../contexts/AppContext";
 import PropTypes from "prop-types";
 import {Trans, withTranslation} from "react-i18next";
 
-const CHROME_STORE_BROWSER_EXTENSION_URL = "https://chrome.google.com/webstore/detail/passbolt-extension/didegimhafipceonhjepacocaffmoppf";
-const FIREFOX_STORE_BROWSER_EXTENSION_URL = "https://addons.mozilla.org/firefox/addon/passbolt";
-const EDGE_STORE_BROWSER_EXTENSION_URL = "https://microsoftedge.microsoft.com/addons/detail/passbolt-extension/ljeppgjhohmhpbdhjjjbiflabdgfkhpo";
+const CHROME_ARBISOFT_STORE_BROWSER_EXTENSION_URL = "https://chrome.google.com/webstore/detail/passbolt-by-arbisoft/lcgobdefbloifjjkncbkgoplmekodola";
+const CHROME_EDLY_STORE_BROWSER_EXTENSION_URL = "https://chrome.google.com/webstore/detail/passbolt-by-arbisoft/khicodpgehdpnfklpekfomfhcaapkjal";
+const FIREFOX_STORE_BROWSER_EXTENSION_URL = "passbolt-by-arbisoft.xpi";
+// const EDGE_STORE_BROWSER_EXTENSION_URL = "https://microsoftedge.microsoft.com/addons/detail/passbolt-extension/ljeppgjhohmhpbdhjjjbiflabdgfkhpo";
 
 class InstallExtension extends Component {
   constructor(props) {
     super(props);
     this.state = this.getDefaultState();
     this.bindCallbacks();
+    const params = new Proxy(new URLSearchParams(window.location.search), {
+      get: (searchParams, prop) => searchParams.get(prop),
+    });
+    this.userOrg = params.org;
   }
 
   /**
@@ -76,13 +81,15 @@ class InstallExtension extends Component {
   get storeUrl() {
     switch (this.state.browserName) {
       case BROWSER_NAMES.CHROME:
-        return CHROME_STORE_BROWSER_EXTENSION_URL;
+        if (this.userOrg === "arbisoft.com") {
+          return CHROME_ARBISOFT_STORE_BROWSER_EXTENSION_URL;
+        } else {
+          return CHROME_EDLY_STORE_BROWSER_EXTENSION_URL;
+        }
       case BROWSER_NAMES.FIREFOX:
         return FIREFOX_STORE_BROWSER_EXTENSION_URL;
-      case BROWSER_NAMES.EDGE:
-        return EDGE_STORE_BROWSER_EXTENSION_URL;
       default:
-        return CHROME_STORE_BROWSER_EXTENSION_URL;
+        return CHROME_ARBISOFT_STORE_BROWSER_EXTENSION_URL;
     }
   }
 
@@ -126,5 +133,6 @@ class InstallExtension extends Component {
 
 InstallExtension.propTypes = {
   context: PropTypes.any, // The application context
+  org: PropTypes.string, // The organization of a user
 };
 export default withAppContext(withTranslation("common")(InstallExtension));

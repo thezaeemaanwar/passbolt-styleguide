@@ -298,7 +298,6 @@ class EnterUsernameForm extends Component {
   render() {
     return (
       <div className="enter-username">
-        {/* <a href="https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=online&client_id=618975292790-h4ibru26u3vk4b45cockv87f49lrjgp4.apps.googleusercontent.com&redirect_uri=http://dev-passbolt.arbisoft.com/googleaccount&state&scope=email%20profile&approval_prompt=auto"> */}
         <a
           href={`https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=online&client_id=${this.state.googleClientId}&redirect_uri=${window.location.origin}/google-callback&state&scope=email%20profile&approval_prompt=auto`}
         >
