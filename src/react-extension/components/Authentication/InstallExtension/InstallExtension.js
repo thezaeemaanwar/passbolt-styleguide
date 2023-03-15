@@ -17,10 +17,9 @@ import {withAppContext} from "../../../contexts/AppContext";
 import PropTypes from "prop-types";
 import {Trans, withTranslation} from "react-i18next";
 
-const CHROME_ARBISOFT_STORE_BROWSER_EXTENSION_URL = "https://chrome.google.com/webstore/detail/passbolt-by-arbisoft/lcgobdefbloifjjkncbkgoplmekodola";
-const CHROME_EDLY_STORE_BROWSER_EXTENSION_URL = "https://chrome.google.com/webstore/detail/passbolt-by-arbisoft/khicodpgehdpnfklpekfomfhcaapkjal";
-const FIREFOX_STORE_BROWSER_EXTENSION_URL = "passbolt-by-arbisoft.xpi";
-// const EDGE_STORE_BROWSER_EXTENSION_URL = "https://microsoftedge.microsoft.com/addons/detail/passbolt-extension/ljeppgjhohmhpbdhjjjbiflabdgfkhpo";
+export const CHROME_ARBISOFT_STORE_BROWSER_EXTENSION_URL = "https://chrome.google.com/webstore/detail/passbolt-by-arbisoft/lcgobdefbloifjjkncbkgoplmekodola";
+export const CHROME_EDLY_STORE_BROWSER_EXTENSION_URL = "https://chrome.google.com/webstore/detail/passbolt-by-arbisoft/khicodpgehdpnfklpekfomfhcaapkjal";
+export const FIREFOX_STORE_BROWSER_EXTENSION_URL = "passbolt-by-arbisoft.xpi";
 
 class InstallExtension extends Component {
   constructor(props) {
@@ -89,7 +88,11 @@ class InstallExtension extends Component {
       case BROWSER_NAMES.FIREFOX:
         return FIREFOX_STORE_BROWSER_EXTENSION_URL;
       default:
-        return CHROME_ARBISOFT_STORE_BROWSER_EXTENSION_URL;
+        if (this.userOrg === "arbisoft.com") {
+          return CHROME_ARBISOFT_STORE_BROWSER_EXTENSION_URL;
+        } else {
+          return CHROME_EDLY_STORE_BROWSER_EXTENSION_URL;
+        }
     }
   }
 
